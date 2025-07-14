@@ -4,694 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - BuyNexa</title>
+    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #1e293b;
-            line-height: 1.6;
-        }
-
-        /* Navigation Styles */
-        .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 1rem 0;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-brand h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-brand h1:hover {
-            transform: scale(1.05);
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        #currencySelector {
-            background: rgba(102, 126, 234, 0.1);
-            border: 2px solid rgba(102, 126, 234, 0.2);
-            border-radius: 12px;
-            padding: 0.75rem 1rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #1e293b;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-
-        #currencySelector:hover {
-            background: rgba(102, 126, 234, 0.2);
-            border-color: rgba(102, 126, 234, 0.4);
-            transform: translateY(-2px);
-        }
-
-        #currencySelector:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .user-menu button {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 0.75rem 1.5rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .user-menu button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Container and Layout */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section-title {
-            font-size: 3rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 3rem;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            border-radius: 2px;
-        }
-
-        .checkout-grid {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        /* Form Container */
-        .form-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            padding: 3rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .form-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-        }
-
-        .form-container h2 {
-            color: #1e293b;
-            font-size: 1.75rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-
-        .form-container h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            border-radius: 2px;
-        }
-
-        .form-container h3 {
-            color: #1e293b;
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin: 2.5rem 0 1.5rem;
-            position: relative;
-            padding-left: 1rem;
-        }
-
-        .form-container h3::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 20px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            border-radius: 2px;
-        }
-
-        /* Form Groups */
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-            color: #374151;
-            font-size: 0.95rem;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem 1.25rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            font-family: inherit;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            background: rgba(255, 255, 255, 1);
-            transform: translateY(-2px);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        /* Payment Methods */
-        .payment-methods {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .payment-method {
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid #e5e7eb;
-            border-radius: 16px;
-            padding: 1.25rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .payment-method::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .payment-method:hover::before {
-            left: 100%;
-        }
-
-        .payment-method:hover {
-            border-color: #667eea;
-            background: rgba(102, 126, 234, 0.05);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
-        }
-
-        .payment-method.selected {
-            border-color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .payment-method input[type="radio"] {
-            width: 20px;
-            height: 20px;
-            margin: 0;
-            accent-color: #667eea;
-            cursor: pointer;
-        }
-
-        .payment-method label {
-            flex: 1;
-            cursor: pointer;
-            margin: 0;
-        }
-
-        .payment-method label strong {
-            color: #1e293b;
-            font-size: 1.1rem;
-            display: block;
-            margin-bottom: 0.25rem;
-        }
-
-        .payment-method label small {
-            color: #64748b;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        /* Payment Fields */
-        .payment-fields {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
-            border: 2px solid rgba(16, 185, 129, 0.2);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-top: 1.5rem;
-            display: none;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .payment-fields::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(45deg, #10b981, #059669);
-            border-radius: 16px 16px 0 0;
-        }
-
-        .payment-fields.show {
-            display: block;
-            animation: slideDown 0.4s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .payment-fields h4 {
-            color: #065f46;
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        /* Card Icons */
-        .card-icons {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 0.75rem;
-        }
-
-        .card-icon {
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.2);
-            border-radius: 8px;
-            padding: 0.5rem 0.75rem;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #667eea;
-            transition: all 0.3s ease;
-        }
-
-        .card-icon:hover {
-            background: rgba(102, 126, 234, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .card-icon.visa {
-            background: rgba(21, 101, 192, 0.1);
-            border-color: rgba(21, 101, 192, 0.2);
-            color: #1565c0;
-        }
-
-        .card-icon.mastercard {
-            background: rgba(235, 0, 27, 0.1);
-            border-color: rgba(235, 0, 27, 0.2);
-            color: #eb001b;
-        }
-
-        .card-icon.verve {
-            background: rgba(0, 150, 57, 0.1);
-            border-color: rgba(0, 150, 57, 0.2);
-            color: #009639;
-        }
-
-        /* Bank Info */
-        .bank-info {
-            background: rgba(16, 185, 129, 0.1);
-            border: 2px solid rgba(16, 185, 129, 0.2);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-top: 1rem;
-            display: none;
-            transition: all 0.3s ease;
-        }
-
-        .bank-info.show {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        .bank-info h4 {
-            color: #065f46;
-            margin-bottom: 1rem;
-        }
-
-        .bank-details {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .bank-details p {
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .bank-details p:last-child {
-            margin-bottom: 0;
-        }
-
-        .whatsapp-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #25D366;
-            color: white;
-            text-decoration: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .whatsapp-link:hover {
-            background: #128C7E;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-        }
-
-        /* Form Button */
-        .form-button {
-            width: 100%;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            border-radius: 16px;
-            padding: 1.25rem 2rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-            font-family: inherit;
-        }
-
-        .form-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .form-button:hover::before {
-            left: 100%;
-        }
-
-        .form-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
-        }
-
-        .form-button:active {
-            transform: translateY(-1px);
-        }
-
-        .form-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .form-button:disabled:hover {
-            transform: none;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        /* Cart Summary */
-        .cart-summary {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            padding: 2.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 7rem;
-            height: fit-content;
-        }
-
-        .cart-summary h3 {
-            color: #1e293b;
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            text-align: center;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-
-        .cart-summary h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            border-radius: 2px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .checkout-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .cart-summary {
-                position: static;
-                order: -1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                padding: 0 1rem;
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .nav-brand h1 {
-                font-size: 1.75rem;
-            }
-            
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .section-title {
-                font-size: 2.25rem;
-                margin-bottom: 2rem;
-            }
-            
-            .form-container,
-            .cart-summary {
-                padding: 2rem;
-                border-radius: 20px;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            
-            .payment-method {
-                padding: 1rem;
-            }
-            
-            .payment-fields {
-                padding: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .section-title {
-                font-size: 1.75rem;
-            }
-            
-            .form-container,
-            .cart-summary {
-                padding: 1.5rem;
-                border-radius: 16px;
-            }
-            
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                padding: 0.875rem 1rem;
-                font-size: 0.95rem;
-            }
-            
-            .form-button {
-                padding: 1rem 1.5rem;
-                font-size: 1.1rem;
-            }
-            
-            .payment-method {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-            
-            .payment-method input[type="radio"] {
-                align-self: flex-start;
-            }
-        }
-
-        /* Animation Classes */
-        .fade-in {
-            animation: fadeIn 0.6s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Loading States */
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
-            position: relative;
-        }
-
-        .loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 24px;
-            height: 24px;
-            margin: -12px 0 0 -12px;
-            border: 3px solid #667eea;
-            border-top: 3px solid transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -725,29 +39,29 @@
     <div class="container" style="margin-top: 6rem; margin-bottom: 2rem;">
         <h1 class="section-title">Checkout</h1>
         
-        <div class="checkout-grid">
+        <div style="display: grid; grid-template-columns: 1fr 400px; gap: 3rem; align-items: start;">
             <!-- Checkout Form -->
-            <div class="form-container fade-in">
-                <h2>Shipping Information</h2>
+            <div class="form-container" style="margin: 0;">
+                <h2 style="margin-bottom: 1.5rem; color: #1e293b;">Shipping Information</h2>
                 
                 <form id="checkoutForm">
                     <div class="form-group">
-                        <label for="customerName">Full Name *</label>
+                        <label for="customerName">Full Name</label>
                         <input type="text" id="customerName" name="customerName" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="email">Email Address *</label>
+                        <label for="email">Email Address</label>
                         <input type="email" id="email" name="email" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="phone">Phone Number *</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="+234 xxx xxx xxxx">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="country">Country *</label>
+                        <label for="country">Country</label>
                         <select id="country" name="country" required>
                             <option value="">Select Country</option>
                             <option value="Nigeria">Nigeria</option>
@@ -761,43 +75,26 @@
                         </select>
                     </div>
                     
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="state">State/Province</label>
-                            <input type="text" id="state" name="state" placeholder="Enter your state or province">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="city">City *</label>
-                            <input type="text" id="city" name="city" required placeholder="Enter your city">
-                        </div>
-                    </div>
-                    
                     <div class="form-group">
-                        <label for="address">Complete Address *</label>
-                        <textarea id="address" name="address" rows="3" placeholder="Enter your complete shipping address including street, house number, landmarks" required></textarea>
+                        <label for="address">Complete Address</label>
+                        <textarea id="address" name="address" rows="3" placeholder="Enter your complete shipping address" required></textarea>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="postalCode">Postal/ZIP Code</label>
-                        <input type="text" id="postalCode" name="postalCode" placeholder="Enter postal or ZIP code">
-                    </div>
-                    
-                    <h3>Payment Method</h3>
+                    <h3 style="margin: 2rem 0 1rem; color: #1e293b;">Payment Method</h3>
                     
                     <div class="payment-methods">
                         <div class="payment-method" onclick="selectPaymentMethod('card')">
                             <input type="radio" name="paymentMethod" value="card" id="cardPayment">
                             <label for="cardPayment">
-                                <strong>💳 Credit/Debit Card</strong>
-                                <br><small>Secure payment with Visa, Mastercard, Verve, or other cards</small>
+                                <strong>Credit/Debit Card</strong>
+                                <br><small>Secure payment with Visa, Mastercard, or other cards</small>
                             </label>
                         </div>
                         
                         <div class="payment-method" onclick="selectPaymentMethod('bank')">
                             <input type="radio" name="paymentMethod" value="bank" id="bankPayment">
                             <label for="bankPayment">
-                                <strong>🏦 Bank Transfer</strong>
+                                <strong>Bank Transfer</strong>
                                 <br><small>Direct bank transfer to our account</small>
                             </label>
                         </div>
@@ -805,57 +102,19 @@
                         <div class="payment-method" onclick="selectPaymentMethod('paypal')">
                             <input type="radio" name="paymentMethod" value="paypal" id="paypalPayment">
                             <label for="paypalPayment">
-                                <strong>💰 PayPal</strong>
+                                <strong>PayPal</strong>
                                 <br><small>Pay securely with your PayPal account</small>
                             </label>
                         </div>
                     </div>
                     
-                    <!-- Credit Card Fields -->
-                    <div id="cardFields" class="payment-fields">
-                        <h4>Credit Card Information</h4>
-                        
-                        <div class="form-group">
-                            <label for="cardNumber">Card Number *</label>
-                            <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCardNumber(this)">
-                            <div class="card-icons">
-                                <span class="card-icon visa">VISA</span>
-                                <span class="card-icon mastercard">MC</span>
-                                <span class="card-icon verve">VERVE</span>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="expiryDate">Expiry Date *</label>
-                                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" maxlength="5" oninput="formatExpiryDate(this)">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="cvv">CVV *</label>
-                                <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" oninput="formatCVV(this)">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="cardName">Name on Card *</label>
-                            <input type="text" id="cardName" name="cardName" placeholder="Enter name as it appears on card">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="billingAddress">Billing Address</label>
-                            <textarea id="billingAddress" name="billingAddress" rows="2" placeholder="Enter billing address (if different from shipping address)"></textarea>
-                        </div>
-                    </div>
-                    
                     <!-- Bank Transfer Info -->
                     <div id="bankInfo" class="bank-info">
-                        <h4>Bank Transfer Details</h4>
+                        <h4 style="margin-bottom: 1rem; color: #1e293b;">Bank Transfer Details</h4>
                         <div class="bank-details">
                             <p><strong>Bank:</strong> Moniepoint MFB</p>
                             <p><strong>Account Number:</strong> 9154609367</p>
                             <p><strong>Account Name:</strong> BuyNexa Store</p>
-                            <p><strong>Sort Code:</strong> 50515</p>
                         </div>
                         <p style="margin-bottom: 1rem; color: #64748b;">
                             Transfer the exact amount and send proof of payment via WhatsApp for confirmation.
@@ -865,34 +124,22 @@
                         </a>
                     </div>
                     
-                    <!-- PayPal Fields -->
-                    <div id="paypalFields" class="payment-fields">
-                        <h4>PayPal Payment</h4>
-                        <div class="form-group">
-                            <label for="paypalEmail">PayPal Email *</label>
-                            <input type="email" id="paypalEmail" name="paypalEmail" placeholder="Enter your PayPal email address">
-                        </div>
-                        <p style="color: #64748b; font-size: 0.9rem;">
-                            You will be redirected to PayPal to complete your payment securely.
-                        </p>
-                    </div>
-                    
-                    <button type="submit" class="form-button">
-                        🛒 Place Order
+                    <button type="submit" class="form-button" style="margin-top: 2rem;">
+                        Place Order
                     </button>
                 </form>
             </div>
             
             <!-- Order Summary -->
-            <div class="cart-summary fade-in">
-                <h3>Order Summary</h3>
+            <div class="cart-summary">
+                <h3 style="margin-bottom: 1.5rem;">Order Summary</h3>
                 
-                <div id="orderItems" style="margin-bottom: 1rem; max-height: 300px; overflow-y: auto; padding-right: 0.5rem;"></div>
+                <div id="orderItems" style="margin-bottom: 1rem; max-height: 300px; overflow-y: auto;"></div>
                 
                 <div style="border-top: 2px solid #e2e8f0; padding-top: 1rem;">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                         <span>Subtotal:</span>
-                        <span id="orderSubtotal">₦0</span>
+                        <span id="orderSubtotal"></span>
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #10B981;" id="orderDiscountRow" style="display: none;">
                         <span>Discount:</span>
@@ -902,23 +149,15 @@
                         <span>Shipping:</span>
                         <span>Free</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                        <span>Tax (7.5%):</span>
-                        <span id="orderTax">₦0</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; color: #3B82F6; border-top: 1px solid #e2e8f0; padding-top: 0.5rem; margin-top: 0.5rem;">
+                    <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; color: #3B82F6; border-top: 1px solid #e2e8f0; padding-top: 0.5rem;">
                         <span>Total:</span>
-                        <span id="orderTotal">₦0</span>
+                        <span id="orderTotal"></span>
                     </div>
                 </div>
                 
-                <div style="margin-top: 2rem; text-align: center; padding: 1.5rem; background: rgba(16, 185, 129, 0.1); border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.2);">
-                    <p style="font-size: 0.9rem; color: #064e3b; margin-bottom: 0.5rem;">
+                <div style="margin-top: 1rem; text-align: center;">
+                    <p style="font-size: 0.9rem; color: #64748b;">
                         🔒 Secure checkout with SSL encryption
-                    </p>
-                    <p style="font-size: 0.8rem; color: #065f46;">
-                        💳 We accept all major credit cards<br>
-                        🚚 Free shipping on orders over ₦50,000
                     </p>
                 </div>
             </div>
@@ -930,8 +169,6 @@
     <script src="c.js"></script>
 <script>
     let appliedCoupon = null;
-    let currentCurrency = 'NGN';
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     document.addEventListener('DOMContentLoaded', function () {
         const savedCoupon = localStorage.getItem('appliedCoupon');
@@ -959,72 +196,49 @@
         event.currentTarget.classList.add('selected');
         document.getElementById(method + 'Payment').checked = true;
 
-        // Hide all payment fields
-        document.querySelectorAll('.payment-fields').forEach(el => {
-            el.classList.remove('show');
-        });
         document.getElementById('bankInfo')?.classList.remove('show');
+        document.getElementById('cardFields')?.classList.remove('show');
+        document.getElementById('paypalFields')?.classList.remove('show');
 
-        // Show selected payment fields
-        if (method === 'card') {
-            document.getElementById('cardFields').classList.add('show');
-        } else if (method === 'bank') {
+        if (method === 'bank') {
             document.getElementById('bankInfo').classList.add('show');
+        } else if (method === 'card') {
+            document.getElementById('cardFields').classList.add('show');
         } else if (method === 'paypal') {
             document.getElementById('paypalFields').classList.add('show');
         }
     }
 
-    function formatCardNumber(input) {
-        let value = input.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
-        let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
-        input.value = formattedValue;
-    }
-
-    function formatExpiryDate(input) {
-        let value = input.value.replace(/\D/g, '');
-        if (value.length >= 2) {
-            value = value.substring(0, 2) + '/' + value.substring(2, 4);
-        }
-        input.value = value;
-    }
-
-    function formatCVV(input) {
-        input.value = input.value.replace(/[^0-9]/g, '');
-    }
-
     function updateOrderSummary() {
         const orderItems = document.getElementById('orderItems');
         if (!cart || cart.length === 0) {
-            orderItems.innerHTML = '<p style="text-align: center; color: #64748b;">Your cart is empty</p>';
+            window.location.href = 'cart.html';
             return;
         }
 
         orderItems.innerHTML = cart.map(item => `
-            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e2e8f0;">
-                <img src="${item.image || 'https://via.placeholder.com/60'}" alt="${item.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e2e8f0;">
+                <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
                 <div style="flex: 1;">
-                    <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem; color: #1e293b; font-weight: 600;">${item.name}</h4>
-                    <p style="font-size: 0.85rem; color: #64748b;">Qty: ${item.quantity}</p>
+                    <h4 style="font-size: 0.9rem; margin-bottom: 0.25rem;">${item.name}</h4>
+                    <p style="font-size: 0.8rem; color: #64748b;">Qty: ${item.quantity}</p>
                 </div>
                 <div style="text-align: right;">
-                    <p style="font-weight: 700; color: #3B82F6; font-size: 1rem;">${formatPrice(item.price * item.quantity)}</p>
+                    <p style="font-weight: 600;">${formatPrice(item.price * item.quantity)}</p>
                 </div>
             </div>
         `).join('');
 
         const subtotalAmount = getCartTotal();
         let discountAmount = 0;
-        const taxAmount = subtotalAmount * 0.075; // 7.5% VAT
 
         if (appliedCoupon) {
             discountAmount = calculateDiscount(subtotalAmount, appliedCoupon);
         }
 
-        const totalAmount = subtotalAmount - discountAmount + taxAmount;
+        const totalAmount = subtotalAmount - discountAmount;
 
         document.getElementById('orderSubtotal').textContent = formatPrice(subtotalAmount);
-        document.getElementById('orderTax').textContent = formatPrice(taxAmount);
         document.getElementById('orderTotal').textContent = formatPrice(totalAmount);
 
         const discountRow = document.getElementById('orderDiscountRow');
@@ -1059,11 +273,6 @@
         return methods[method] || method;
     }
 
-    function changeCurrency(currency) {
-        currentCurrency = currency;
-        updateOrderSummary();
-    }
-
     document.getElementById('checkoutForm').addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -1075,117 +284,39 @@
             return;
         }
 
-        // Get all form data
-        const orderData = {
-            // Customer Information
-            name: formData.get('customerName'),
-            email: formData.get('email'),
-            phone: formData.get('phone'),
-            country: formData.get('country'),
-            state: formData.get('state'),
-            city: formData.get('city'),
-            address: formData.get('address'),
-            postalCode: formData.get('postalCode'),
-            
-            // Payment Information
-            paymentMethod: paymentMethod
-        };
-
-        // Add payment-specific details
-        if (paymentMethod === 'card') {
-            orderData.cardNumber = formData.get('cardNumber');
-            orderData.expiryDate = formData.get('expiryDate');
-            orderData.cvv = formData.get('cvv');
-            orderData.cardName = formData.get('cardName');
-            orderData.billingAddress = formData.get('billingAddress');
-        } else if (paymentMethod === 'paypal') {
-            orderData.paypalEmail = formData.get('paypalEmail');
-        }
-
+        const name = formData.get('customerName');
+        const email = formData.get('email');
+        const phone = formData.get('phone');
+        const country = formData.get('country');
+        const address = formData.get('address');
         const subtotalAmount = getCartTotal();
-        const taxAmount = subtotalAmount * 0.075;
         const discountAmount = appliedCoupon ? calculateDiscount(subtotalAmount, appliedCoupon) : 0;
-        const totalAmount = subtotalAmount - discountAmount + taxAmount;
+        const totalAmount = subtotalAmount - discountAmount;
 
         const currencySymbol = getCurrencySymbol(currentCurrency);
 
-        // Create WhatsApp message
-        let message = `🛒 *NEW BUYNEXA ORDER*%0A`;
-        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━%0A%0A`;
-        
-        // Customer Details
-        message += `👤 *CUSTOMER INFORMATION*%0A`;
-        message += `• Name: ${orderData.name}%0A`;
-        message += `• Email: ${orderData.email}%0A`;
-        message += `• Phone: ${orderData.phone}%0A`;
-        message += `• Country: ${orderData.country}%0A`;
-        if (orderData.state) message += `• State: ${orderData.state}%0A`;
-        message += `• City: ${orderData.city}%0A`;
-        if (orderData.postalCode) message += `• Postal Code: ${orderData.postalCode}%0A`;
-        message += `• Address: ${orderData.address}%0A%0A`;
+        let message = `🛒 *BuyNexa Order Details*%0A%0A`;
+        message += `👤 *Name:* ${name}%0A`;
+        message += `📧 *Email:* ${email}%0A`;
+        message += `📞 *Phone:* ${phone}%0A`;
+        message += `🌍 *Country:* ${country}%0A`;
+        message += `🏠 *Address:* ${address}%0A`;
+        message += `💳 *Payment Method:* ${getPaymentMethodName(paymentMethod)}%0A%0A`;
+        message += `🧾 *Order Items:*%0A`;
 
-        // Payment Details
-        message += `💳 *PAYMENT INFORMATION*%0A`;
-        message += `• Method: ${getPaymentMethodName(paymentMethod)}%0A`;
-        
-        if (paymentMethod === 'card') {
-            message += `• Card Number: **** **** **** ${orderData.cardNumber.slice(-4)}%0A`;
-            message += `• Expiry: ${orderData.expiryDate}%0A`;
-            message += `• Name on Card: ${orderData.cardName}%0A`;
-            if (orderData.billingAddress) {
-                message += `• Billing Address: ${orderData.billingAddress}%0A`;
-            }
-        } else if (paymentMethod === 'paypal') {
-            message += `• PayPal Email: ${orderData.paypalEmail}%0A`;
-        }
-        message += `%0A`;
-
-        // Order Items
-        message += `🧾 *ORDER ITEMS*%0A`;
-        cart.forEach((item, index) => {
-            message += `${index + 1}. ${item.name}%0A`;
-            message += `   • Quantity: ${item.quantity}%0A`;
-            message += `   • Unit Price: ${currencySymbol}${item.price.toLocaleString()}%0A`;
-            message += `   • Subtotal: ${currencySymbol}${(item.price * item.quantity).toLocaleString()}%0A%0A`;
+        cart.forEach(item => {
+            message += `• ${item.name} (${item.quantity}x) - ${currencySymbol}${item.price * item.quantity}%0A`;
         });
 
-        // Order Summary
-        message += `💰 *ORDER SUMMARY*%0A`;
-        message += `• Subtotal: ${currencySymbol}${subtotalAmount.toLocaleString()}%0A`;
-        if (discountAmount > 0) {
-            message += `• Discount: -${currencySymbol}${discountAmount.toLocaleString()}%0A`;
-            message += `• Coupon: ${appliedCoupon.code}%0A`;
+        if (appliedCoupon) {
+            message += `%0A🏷️ *Coupon:* ${appliedCoupon.code} (-${currencySymbol}${discountAmount})%0A`;
         }
-        message += `• Tax (7.5%): ${currencySymbol}${taxAmount.toLocaleString()}%0A`;
-        message += `• Shipping: FREE%0A`;
-        message += `• *TOTAL: ${currencySymbol}${totalAmount.toLocaleString()}*%0A%0A`;
-        
-        message += `⏰ *Order Time:* ${new Date().toLocaleString()}%0A`;
-        message += `🆔 *Order ID:* BN${Date.now()}%0A%0A`;
-        
-        message += `✅ *Please confirm this order and provide payment instructions.*`;
 
-        // Send to WhatsApp
-        const whatsappNumber = "2349154609367";
-        const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
-        
-        // Show loading state
-        const submitButton = document.querySelector('.form-button');
-        const originalText = submitButton.textContent;
-        submitButton.textContent = 'Processing Order...';
-        submitButton.disabled = true;
+        message += `%0A💰 *Total:* ${currencySymbol}${totalAmount}%0A`;
+        message += `%0A✅ Please confirm this order.`;
 
-        // Simulate processing time
-        setTimeout(() => {
-            window.open(whatsappLink, '_blank');
-            
-            // Reset button
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-            
-            // Show success message
-            alert('Order details have been sent to WhatsApp! Please check your WhatsApp to complete the order.');
-        }, 2000);
+        const whatsappLink = `https://wa.me/2349154609367?text=${encodeURIComponent(message)}`;
+        window.open(whatsappLink, '_blank');
     });
 </script>
 
