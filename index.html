@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Add ONLY this meta tag to your HTML head section -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BuyNexa - Your Ultimate Shopping Destination</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>BuyNexa</h1>
+            </div>
+            
+            <div class="nav-search">
+                <input type="text" id="searchInput" placeholder="Search for products...">
+                <button onclick="searchProducts()">🔍</button>
+            </div>
+            
+            <div class="nav-actions">
+                <select id="currencySelector" onchange="changeCurrency(this.value)">
+                    <option value="NGN">₦ NGN</option>
+                    <option value="USD">$ USD</option>
+                    <option value="EUR">€ EUR</option>
+                    <option value="GBP">£ GBP</option>
+                </select>
+                
+                <div class="cart-icon" onclick="window.location.href='cart.html'">
+                    🛒 <span id="cartCount">0</span>
+                </div>
+                
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video Background -->
+    <section class="hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content">
+            <h2>Welcome to BuyNexa</h2>
+            <p>Discover amazing products at unbeatable prices</p>
+            <button class="cta-button" onclick="scrollToSection('hot-deals')">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- Hot Deals Section -->
+    <section id="hot-deals" class="section">
+        <div class="container">
+            <h2 class="section-title">🔥 Hot Deals</h2>
+            <div class="countdown-timer">
+                <div class="timer-item">
+                    <span id="days">00</span>
+                    <label>Days</label>
+                </div>
+                <div class="timer-item">
+                    <span id="hours">00</span>
+                    <label>Hours</label>
+                </div>
+                <div class="timer-item">
+                    <span id="minutes">00</span>
+                    <label>Minutes</label>
+                </div>
+                <div class="timer-item">
+                    <span id="seconds">00</span>
+                    <label>Seconds</label>
+                </div>
+            </div>
+            <div class="products-grid" id="hotDealsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Coupons Section -->
+    <section class="section coupons-section">
+        <div class="container">
+            <h2 class="section-title">💰 Available Coupons</h2>
+            <div class="coupons-grid">
+                <div class="coupon-card">
+                    <h3>SAVE20</h3>
+                    <p>20% off on orders above ₦50,000</p>
+                    <button onclick="copyCoupon('SAVE20')">Copy Code</button>
+                </div>
+                <div class="coupon-card">
+                    <h3>FIRST15</h3>
+                    <p>15% off for first-time buyers</p>
+                    <button onclick="copyCoupon('FIRST15')">Copy Code</button>
+                </div>
+                <div class="coupon-card">
+                    <h3>BULK30</h3>
+                    <p>30% off on bulk orders (5+ items)</p>
+                    <button onclick="copyCoupon('BULK30')">Copy Code</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">🛍️ Featured Categories</h2>
+            <div class="categories-grid">
+                <div class="category-card" onclick="window.location.href='electronics.html'">
+                    <img src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg" alt="Electronics">
+                    <h3>Electronics</h3>
+                    <p>Latest gadgets and tech</p>
+                </div>
+                <div class="category-card" onclick="window.location.href='beauty.html'">
+                    <img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg" alt="Beauty">
+                    <h3>Beauty</h3>
+                    <p>Cosmetics and skincare</p>
+                </div>
+                <div class="category-card" onclick="window.location.href='clothing.html'">
+                    <img src="https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg" alt="Clothing">
+                    <h3>Clothing</h3>
+                    <p>Fashion and apparel</p>
+                </div>
+                <div class="category-card" onclick="window.location.href='gadgets.html'">
+                    <img src="https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg" alt="Gadgets">
+                    <h3>Gadgets</h3>
+                    <p>Cool and useful gadgets</p>
+                </div>
+                <div class="category-card" onclick="window.location.href='food.html'">
+                    <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg" alt="Food">
+                    <h3>Food</h3>
+                    <p>Gourmet and snacks</p>
+                </div>
+                <div class="category-card" onclick="window.location.href='books.html'">
+                    <img src="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg" alt="Books">
+                    <h3>Books</h3>
+                    <p>Knowledge and entertainment</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommended Products -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">⭐ Recommended for You</h2>
+            <div class="products-grid" id="recommendedGrid"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BuyNexa</h3>
+                    <p>Your ultimate shopping destination for quality products at amazing prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <p>Email: support@buynexa.com</p>
+                    <p>Phone: +234 915 460 9367</p>
+                    <p>WhatsApp: <a href="https://wa.me/2349154609367">Chat with us</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BuyNexa. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="products.js"></script>
+</body>
+</html>

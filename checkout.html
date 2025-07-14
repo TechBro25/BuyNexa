@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - BuyNexa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1 onclick="window.location.href='index.html'">BuyNexa</h1>
+            </div>
+            
+            <div class="nav-actions">
+                <select id="currencySelector" onchange="changeCurrency(this.value)">
+                    <option value="NGN">₦ NGN</option>
+                    <option value="USD">$ USD</option>
+                    <option value="EUR">€ EUR</option>
+                    <option value="GBP">£ GBP</option>
+                </select>
+                
+                <div class="user-profile">
+                    <div id="userMenu" class="user-menu">
+                        <div id="userInfo" style="display: none;">
+                            <span id="userName"></span>
+                            <button onclick="logout()">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Checkout Content -->
+    <div class="container" style="margin-top: 6rem; margin-bottom: 2rem;">
+        <h1 class="section-title">Checkout</h1>
+        
+        <div style="display: grid; grid-template-columns: 1fr 400px; gap: 3rem; align-items: start;">
+            <!-- Checkout Form -->
+            <div class="form-container" style="margin: 0;">
+                <h2 style="margin-bottom: 1.5rem; color: #1e293b;">Shipping Information</h2>
+                
+                <form id="checkoutForm">
+                    <div class="form-group">
+                        <label for="customerName">Full Name</label>
+                        <input type="text" id="customerName" name="customerName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select id="country" name="country" required>
+                            <option value="">Select Country</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="Kenya">Kenya</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Complete Address</label>
+                        <textarea id="address" name="address" rows="3" placeholder="Enter your complete shipping address" required></textarea>
+                    </div>
+                    
+                    <h3 style="margin: 2rem 0 1rem; color: #1e293b;">Payment Method</h3>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-method" onclick="selectPaymentMethod('card')">
+                            <input type="radio" name="paymentMethod" value="card" id="cardPayment">
+                            <label for="cardPayment">
+                                <strong>Credit/Debit Card</strong>
+                                <br><small>Secure payment with Visa, Mastercard, or other cards</small>
+                            </label>
+                        </div>
+                        
+                        <div class="payment-method" onclick="selectPaymentMethod('bank')">
+                            <input type="radio" name="paymentMethod" value="bank" id="bankPayment">
+                            <label for="bankPayment">
+                                <strong>Bank Transfer</strong>
+                                <br><small>Direct bank transfer to our account</small>
+                            </label>
+                        </div>
+                        
+                        <div class="payment-method" onclick="selectPaymentMethod('paypal')">
+                            <input type="radio" name="paymentMethod" value="paypal" id="paypalPayment">
+                            <label for="paypalPayment">
+                                <strong>PayPal</strong>
+                                <br><small>Pay securely with your PayPal account</small>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Bank Transfer Info -->
+                    <div id="bankInfo" class="bank-info">
+                        <h4 style="margin-bottom: 1rem; color: #1e293b;">Bank Transfer Details</h4>
+                        <div class="bank-details">
+                            <p><strong>Bank:</strong> Moniepoint MFB</p>
+                            <p><strong>Account Number:</strong> 9154609367</p>
+                            <p><strong>Account Name:</strong> BuyNexa Store</p>
+                        </div>
+                        <p style="margin-bottom: 1rem; color: #64748b;">
+                            Transfer the exact amount and send proof of payment via WhatsApp for confirmation.
+                        </p>
+                        <a href="https://wa.me/2349154609367" target="_blank" class="whatsapp-link">
+                            📱 Confirm Payment on WhatsApp
+                        </a>
+                    </div>
+                    
+                    <button type="submit" class="form-button" style="margin-top: 2rem;">
+                        Place Order
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="cart-summary">
+                <h3 style="margin-bottom: 1.5rem;">Order Summary</h3>
+                
+                <div id="orderItems" style="margin-bottom: 1rem; max-height: 300px; overflow-y: auto;"></div>
+                
+                <div style="border-top: 2px solid #e2e8f0; padding-top: 1rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Subtotal:</span>
+                        <span id="orderSubtotal"></span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #10B981;" id="orderDiscountRow" style="display: none;">
+                        <span>Discount:</span>
+                        <span id="orderDiscount">-₦0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Shipping:</span>
+                        <span>Free</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; color: #3B82F6; border-top: 1px solid #e2e8f0; padding-top: 0.5rem;">
+                        <span>Total:</span>
+                        <span id="orderTotal"></span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 1rem; text-align: center;">
+                    <p style="font-size: 0.9rem; color: #64748b;">
+                        🔒 Secure checkout with SSL encryption
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="products.js"></script>
+    <script src="c.js"></script>
+<script>
+    let appliedCoupon = null;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const savedCoupon = localStorage.getItem('appliedCoupon');
+        if (savedCoupon) {
+            appliedCoupon = JSON.parse(savedCoupon);
+        }
+        updateOrderSummary();
+    });
+
+    function getCurrencySymbol(code) {
+        const symbols = {
+            NGN: '₦',
+            USD: '$',
+            EUR: '€',
+            GBP: '£'
+        };
+        return symbols[code] || '';
+    }
+
+    function selectPaymentMethod(method) {
+        document.querySelectorAll('.payment-method').forEach(el => {
+            el.classList.remove('selected');
+        });
+
+        event.currentTarget.classList.add('selected');
+        document.getElementById(method + 'Payment').checked = true;
+
+        document.getElementById('bankInfo')?.classList.remove('show');
+        document.getElementById('cardFields')?.classList.remove('show');
+        document.getElementById('paypalFields')?.classList.remove('show');
+
+        if (method === 'bank') {
+            document.getElementById('bankInfo').classList.add('show');
+        } else if (method === 'card') {
+            document.getElementById('cardFields').classList.add('show');
+        } else if (method === 'paypal') {
+            document.getElementById('paypalFields').classList.add('show');
+        }
+    }
+
+    function updateOrderSummary() {
+        const orderItems = document.getElementById('orderItems');
+        if (!cart || cart.length === 0) {
+            window.location.href = 'cart.html';
+            return;
+        }
+
+        orderItems.innerHTML = cart.map(item => `
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e2e8f0;">
+                <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
+                <div style="flex: 1;">
+                    <h4 style="font-size: 0.9rem; margin-bottom: 0.25rem;">${item.name}</h4>
+                    <p style="font-size: 0.8rem; color: #64748b;">Qty: ${item.quantity}</p>
+                </div>
+                <div style="text-align: right;">
+                    <p style="font-weight: 600;">${formatPrice(item.price * item.quantity)}</p>
+                </div>
+            </div>
+        `).join('');
+
+        const subtotalAmount = getCartTotal();
+        let discountAmount = 0;
+
+        if (appliedCoupon) {
+            discountAmount = calculateDiscount(subtotalAmount, appliedCoupon);
+        }
+
+        const totalAmount = subtotalAmount - discountAmount;
+
+        document.getElementById('orderSubtotal').textContent = formatPrice(subtotalAmount);
+        document.getElementById('orderTotal').textContent = formatPrice(totalAmount);
+
+        const discountRow = document.getElementById('orderDiscountRow');
+        if (discountAmount > 0) {
+            document.getElementById('orderDiscount').textContent = `-${formatPrice(discountAmount)}`;
+            discountRow.style.display = 'flex';
+        } else {
+            discountRow.style.display = 'none';
+        }
+    }
+
+    function calculateDiscount(amount, coupon) {
+        return coupon.type === 'percentage'
+            ? amount * (coupon.value / 100)
+            : coupon.value;
+    }
+
+    function formatPrice(amount) {
+        return getCurrencySymbol(currentCurrency) + amount.toLocaleString();
+    }
+
+    function getCartTotal() {
+        return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    }
+
+    function getPaymentMethodName(method) {
+        const methods = {
+            'card': 'Credit/Debit Card',
+            'bank': 'Bank Transfer',
+            'paypal': 'PayPal'
+        };
+        return methods[method] || method;
+    }
+
+    document.getElementById('checkoutForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const paymentMethod = formData.get('paymentMethod');
+
+        if (!paymentMethod) {
+            alert("Please select a payment method.");
+            return;
+        }
+
+        const name = formData.get('customerName');
+        const email = formData.get('email');
+        const phone = formData.get('phone');
+        const country = formData.get('country');
+        const address = formData.get('address');
+        const subtotalAmount = getCartTotal();
+        const discountAmount = appliedCoupon ? calculateDiscount(subtotalAmount, appliedCoupon) : 0;
+        const totalAmount = subtotalAmount - discountAmount;
+
+        const currencySymbol = getCurrencySymbol(currentCurrency);
+
+        let message = `🛒 *BuyNexa Order Details*%0A%0A`;
+        message += `👤 *Name:* ${name}%0A`;
+        message += `📧 *Email:* ${email}%0A`;
+        message += `📞 *Phone:* ${phone}%0A`;
+        message += `🌍 *Country:* ${country}%0A`;
+        message += `🏠 *Address:* ${address}%0A`;
+        message += `💳 *Payment Method:* ${getPaymentMethodName(paymentMethod)}%0A%0A`;
+        message += `🧾 *Order Items:*%0A`;
+
+        cart.forEach(item => {
+            message += `• ${item.name} (${item.quantity}x) - ${currencySymbol}${item.price * item.quantity}%0A`;
+        });
+
+        if (appliedCoupon) {
+            message += `%0A🏷️ *Coupon:* ${appliedCoupon.code} (-${currencySymbol}${discountAmount})%0A`;
+        }
+
+        message += `%0A💰 *Total:* ${currencySymbol}${totalAmount}%0A`;
+        message += `%0A✅ Please confirm this order.`;
+
+        const whatsappLink = `https://wa.me/2349154609367?text=${encodeURIComponent(message)}`;
+        window.open(whatsappLink, '_blank');
+    });
+</script>
+
+</body>
+</html>

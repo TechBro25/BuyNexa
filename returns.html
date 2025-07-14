@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Returns & Exchanges - ShopFlow</title>
+    <link rel="stylesheet" href="shared-styles.css">
+    <link rel="stylesheet" href="returns-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-shopping-bag"></i>
+                <span>ShopFlow</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="shipping.html" class="nav-link">Shipping</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="returns.html" class="nav-link active">Returns</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1><i class="fas fa-undo-alt"></i> Returns & Exchanges</h1>
+                <p>Easy returns and exchanges within 30 days of purchase</p>
+            </div>
+
+            <!-- Return Policy Section -->
+            <div class="policy-section">
+                <h2>Our Return Policy</h2>
+                <div class="policy-grid">
+                    <div class="policy-card">
+                        <div class="policy-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>30-Day Returns</h3>
+                        <p>Return any item within 30 days of purchase for a full refund or exchange.</p>
+                    </div>
+                    
+                    <div class="policy-card">
+                        <div class="policy-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3>Free Return Shipping</h3>
+                        <p>We provide prepaid return labels for all returns within the United States.</p>
+                    </div>
+                    
+                    <div class="policy-card">
+                        <div class="policy-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h3>Full Refunds</h3>
+                        <p>Get your money back in 3-5 business days once we receive your return.</p>
+                    </div>
+                    
+                    <div class="policy-card">
+                        <div class="policy-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h3>Easy Exchanges</h3>
+                        <p>Exchange for a different size, color, or similar item at no extra cost.</p>
+                    </div>
+                </div>
+
+                <!-- Detailed Policy -->
+                <div class="policy-details">
+                    <h3>Return Conditions</h3>
+                    <div class="policy-content">
+                        <div class="policy-column">
+                            <h4><i class="fas fa-check-circle"></i> Eligible Items</h4>
+                            <ul>
+                                <li>Items in original condition</li>
+                                <li>Unworn clothing with tags</li>
+                                <li>Electronics in original packaging</li>
+                                <li>Books and media (if unopened)</li>
+                                <li>Home goods and accessories</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="policy-column">
+                            <h4><i class="fas fa-times-circle"></i> Non-Eligible Items</h4>
+                            <ul>
+                                <li>Personalized or custom items</li>
+                                <li>Perishable goods</li>
+                                <li>Gift cards</li>
+                                <li>Digital downloads</li>
+                                <li>Items damaged by customer</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Return Request Form -->
+            <div class="return-form-section">
+                <h2>Request a Return</h2>
+                <p>Fill out the form below to initiate your return. We'll email you a prepaid return label within 24 hours.</p>
+                
+                <form id="returnForm" class="return-form">
+                    <!-- Order Information -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-receipt"></i> Order Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="orderId">Order ID *</label>
+                                <input type="text" id="orderId" name="orderId" placeholder="e.g., ORD-123456789" required>
+                                <span class="error-message"></span>
+                                <small>Find this in your order confirmation email</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="orderEmail">Email Address Used for Order *</label>
+                                <input type="email" id="orderEmail" name="orderEmail" required>
+                                <span class="error-message"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Information -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-box"></i> Product Information</h3>
+                        <div class="form-group">
+                            <label for="productName">Product Name *</label>
+                            <input type="text" id="productName" name="productName" placeholder="Enter the exact product name" required>
+                            <span class="error-message"></span>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="quantity">Quantity to Return *</label>
+                                <select id="quantity" name="quantity" required>
+                                    <option value="">Select quantity</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5+</option>
+                                </select>
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="returnType">Return Type *</label>
+                                <select id="returnType" name="returnType" required>
+                                    <option value="">Select type</option>
+                                    <option value="refund">Refund</option>
+                                    <option value="exchange">Exchange</option>
+                                    <option value="store-credit">Store Credit</option>
+                                </select>
+                                <span class="error-message"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Return Reason -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-clipboard-list"></i> Return Details</h3>
+                        <div class="form-group">
+                            <label for="returnReason">Reason for Return *</label>
+                            <select id="returnReason" name="returnReason" required>
+                                <option value="">Select a reason</option>
+                                <option value="defective">Defective/Damaged</option>
+                                <option value="wrong-item">Wrong Item Received</option>
+                                <option value="wrong-size">Wrong Size</option>
+                                <option value="not-as-described">Not as Described</option>
+                                <option value="quality">Quality Issues</option>
+                                <option value="changed-mind">Changed Mind</option>
+                                <option value="gift-return">Gift Return</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <span class="error-message"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="returnDetails">Additional Details</label>
+                            <textarea id="returnDetails" name="returnDetails" rows="4" placeholder="Please provide any additional details about your return..."></textarea>
+                            <div class="character-count">
+                                <span id="detailsCharCount">0</span>/500 characters
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-camera"></i> Upload Images (Optional)</h3>
+                        <div class="form-group">
+                            <label for="returnImages">Upload Product Images</label>
+                            <div class="file-upload-area" id="fileUploadArea">
+                                <input type="file" id="returnImages" name="returnImages" multiple accept="image/*">
+                                <div class="upload-content">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Drag and drop images here or <span class="upload-link">browse</span></p>
+                                    <small>Upload up to 5 images (JPG, PNG, max 5MB each)</small>
+                                </div>
+                            </div>
+                            <div id="uploadedFiles" class="uploaded-files"></div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-user"></i> Contact Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName">Full Name *</label>
+                                <input type="text" id="contactName" name="contactName" required>
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactPhone">Phone Number</label>
+                                <input type="tel" id="contactPhone" name="contactPhone" placeholder="(555) 123-4567">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit Return Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-check-circle"></i> Return Request Submitted!</h2>
+            </div>
+            <div class="modal-body">
+                <p>Your return request has been successfully submitted.</p>
+                <p>Return ID: <strong id="returnId">#RET-123456</strong></p>
+                <p>We'll email you a prepaid return label within 24 hours.</p>
+                <div class="next-steps">
+                    <h4>Next Steps:</h4>
+                    <ol>
+                        <li>Wait for the return label email</li>
+                        <li>Package your item securely</li>
+                        <li>Attach the return label</li>
+                        <li>Drop off at any shipping location</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="closeModal" class="btn-primary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script src="returns.js"></script>
+</body>
+</html>

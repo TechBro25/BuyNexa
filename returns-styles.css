@@ -1,0 +1,321 @@
+/* Returns Page Specific Styles */
+
+/* Policy Section */
+.policy-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.policy-section h2 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-size: 2rem;
+    color: var(--text-primary);
+}
+
+.policy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.policy-card {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    transition: var(--transition);
+    background: #fff;
+}
+
+.policy-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.policy-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.policy-icon i {
+    font-size: 1.8rem;
+    color: white;
+}
+
+.policy-card h3 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-size: 1.3rem;
+}
+
+.policy-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Policy Details */
+.policy-details {
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+}
+
+.policy-details h3 {
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.policy-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.policy-column h4 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.policy-column h4 i {
+    margin-right: 10px;
+    font-size: 1rem;
+}
+
+.policy-column h4 .fa-check-circle {
+    color: var(--accent-color);
+}
+
+.policy-column h4 .fa-times-circle {
+    color: var(--error-color);
+}
+
+.policy-column ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.policy-column li {
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.policy-column li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Return Form Section */
+.return-form-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.return-form-section h2 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-size: 1.8rem;
+}
+
+.return-form-section > p {
+    margin-bottom: 2rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* File Upload Styles */
+.file-upload-area {
+    position: relative;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    text-align: center;
+    transition: var(--transition);
+    background-color: var(--secondary-color);
+}
+
+.file-upload-area:hover,
+.file-upload-area.dragover {
+    border-color: var(--primary-color);
+    background-color: rgba(59, 130, 246, 0.05);
+}
+
+.file-upload-area input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+}
+
+.upload-content i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.upload-content p {
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.upload-link {
+    color: var(--primary-color);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.upload-content small {
+    color: var(--text-light);
+}
+
+/* Uploaded Files Display */
+.uploaded-files {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+}
+
+.uploaded-file {
+    position: relative;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    text-align: center;
+    background: #fff;
+}
+
+.uploaded-file img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.uploaded-file .file-name {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    word-break: break-word;
+}
+
+.uploaded-file .remove-file {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--error-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+/* Success Modal Enhancements */
+.next-steps {
+    background: var(--secondary-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-top: 1.5rem;
+    text-align: left;
+}
+
+.next-steps h4 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.next-steps ol {
+    margin-left: 1.2rem;
+}
+
+.next-steps li {
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .policy-section,
+    .return-form-section {
+        padding: 2rem;
+    }
+    
+    .policy-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .policy-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .uploaded-files {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    
+    .file-upload-area {
+        padding: 1.5rem;
+    }
+    
+    .upload-content i {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .policy-section,
+    .return-form-section {
+        padding: 1.5rem;
+    }
+    
+    .policy-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .policy-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .policy-icon i {
+        font-size: 1.5rem;
+    }
+    
+    .uploaded-files {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+}

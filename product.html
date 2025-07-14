@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Product Catalog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 0.5rem;
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-btn {
+            padding: 0.75rem 1.5rem;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .cart-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Navigation */
+        .nav {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: capitalize;
+            transition: all 0.3s ease;
+            color: #64748b;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: #10b981;
+            border-color: #10b981;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Filters */
+        .filters {
+            background: white;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+
+        .filter-select, .filter-input {
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+
+        .price-inputs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .clear-filters {
+            padding: 0.75rem 1.5rem;
+            background: #f97316;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .clear-filters:hover {
+            background: #ea580c;
+            transform: translateY(-2px);
+        }
+
+        /* Products Grid */
+        .products-section {
+            margin: 2rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1e293b;
+            text-align: center;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            color: #10b981;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #1e293b;
+            line-height: 1.4;
+        }
+
+        .product-description {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #fbbf24;
+        }
+
+        .rating-text {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .add-to-cart {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Loading & Empty States */
+        .loading, .no-products {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #64748b;
+        }
+
+        .loading {
+            font-size: 1.2rem;
+        }
+
+        .no-products {
+            font-size: 1.1rem;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .search-container {
+                width: 100%;
+                max-width: none;
+            }
+
+            .nav-content {
+                gap: 0.25rem;
+            }
+
+            .nav-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .product-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .add-to-cart {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-card {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .product-card:nth-child(odd) {
+            animation-delay: 0.1s;
+        }
+
+        .product-card:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">🛍️ Premium Store</div>
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search products...">
+                    <button class="search-btn" onclick="handleSearch()">Search</button>
+                </div>
+                <div class="cart-info">
+                    Cart: <span id="cartCount">0</span> items
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <button class="nav-btn active" onclick="filterByCategory('all')">All Products</button>
+                <button class="nav-btn" onclick="filterByCategory('electronics')">Electronics</button>
+                <button class="nav-btn" onclick="filterByCategory('beauty')">Beauty</button>
+                <button class="nav-btn" onclick="filterByCategory('clothing')">Clothing</button>
+                <button class="nav-btn" onclick="filterByCategory('gadgets')">Gadgets</button>
+                <button class="nav-btn" onclick="filterByCategory('food')">Food</button>
+                <button class="nav-btn" onclick="filterByCategory('books')">Books</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Filters -->
+    <div class="container">
+        <div class="filters">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label">Sort By</label>
+                    <select id="sortSelect" class="filter-select" onchange="handleSort()">
+                        <option value="">Default</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Highest Rated</option>
+                        <option value="reviews">Most Reviews</option>
+                        <option value="name">Name A-Z</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Brand</label>
+                    <select id="brandSelect" class="filter-select" onchange="handleFilter()">
+                        <option value="all">All Brands</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Min Rating</label>
+                    <select id="ratingSelect" class="filter-select" onchange="handleFilter()">
+                        <option value="">All Ratings</option>
+                        <option value="4">4+ Stars</option>
+                        <option value="5">5 Stars</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Price Range</label>
+                    <div class="price-inputs">
+                        <input type="number" id="minPrice" class="filter-input" placeholder="Min" onchange="handleFilter()">
+                        <input type="number" id="maxPrice" class="filter-input" placeholder="Max" onchange="handleFilter()">
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <button class="clear-filters" onclick="clearFilters()">Clear Filters</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <section class="products-section">
+            <h2 class="section-title" id="sectionTitle">Featured Products</h2>
+            <div id="productsGrid" class="products-grid">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Sample product data
+        const sampleProducts = [
+            // Electronics
+            {
+                id: 'elec_001',
+                name: 'Premium Wireless Headphones',
+                price: 45000,
+                image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg',
+                description: 'High-quality wireless headphones with noise cancellation and 30-hour battery life.',
+                category: 'electronics',
+                rating: 5,
+                reviews: 234,
+                brand: 'AudioTech'
+            },
+            {
+                id: 'elec_002',
+                name: 'Smart Phone Pro Max',
+                price: 320000,
+                image: 'https://images.pexels.com/photos/47261/pexels-photo-47261.jpeg',
+                description: 'Latest smartphone with advanced camera system and lightning-fast processor.',
+                category: 'electronics',
+                rating: 5,
+                reviews: 567,
+                brand: 'TechMobile'
+            },
+            {
+                id: 'elec_003',
+                name: 'Gaming Laptop Ultra',
+                price: 580000,
+                image: 'https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg',
+                description: 'High-performance gaming laptop with RTX graphics and RGB backlit keyboard.',
+                category: 'electronics',
+                rating: 4,
+                reviews: 189,
+                brand: 'GamePro'
+            },
+            {
+                id: 'elec_004',
+                name: 'Smart Watch Series X',
+                price: 85000,
+                image: 'https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg',
+                description: 'Advanced smartwatch with health monitoring and GPS tracking.',
+                category: 'electronics',
+                rating: 4,
+                reviews: 456,
+                brand: 'WearTech'
+            },
+            
+            // Beauty Products
+            {
+                id: 'beauty_001',
+                name: 'Luxury Face Cream Set',
+                price: 25000,
+                image: 'https://images.pexels.com/photos/3685538/pexels-photo-3685538.jpeg',
+                description: 'Anti-aging face cream with natural ingredients for radiant skin.',
+                category: 'beauty',
+                rating: 5,
+                reviews: 312,
+                brand: 'GlowBeauty'
+            },
+            {
+                id: 'beauty_002',
+                name: 'Professional Makeup Kit',
+                price: 35000,
+                image: 'https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg',
+                description: 'Complete makeup kit with brushes and premium cosmetics.',
+                category: 'beauty',
+                rating: 4,
+                reviews: 189,
+                brand: 'MakeupPro'
+            },
+            {
+                id: 'beauty_003',
+                name: 'Organic Skincare Set',
+                price: 42000,
+                image: 'https://images.pexels.com/photos/3785147/pexels-photo-3785147.jpeg',
+                description: 'Natural skincare products for all skin types.',
+                category: 'beauty',
+                rating: 5,
+                reviews: 267,
+                brand: 'NaturalGlow'
+            },
+            {
+                id: 'beauty_004',
+                name: 'Hair Treatment Kit',
+                price: 18000,
+                image: 'https://images.pexels.com/photos/3993444/pexels-photo-3993444.jpeg',
+                description: 'Complete hair care system for healthy, shiny hair.',
+                category: 'beauty',
+                rating: 4,
+                reviews: 145,
+                brand: 'HairCare+'
+            },
+            
+            // Clothing
+            {
+                id: 'cloth_001',
+                name: 'Designer Casual Shirt',
+                price: 15000,
+                image: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg',
+                description: 'Premium cotton casual shirt perfect for any occasion.',
+                category: 'clothing',
+                rating: 4,
+                reviews: 98,
+                brand: 'FashionForward'
+            },
+            {
+                id: 'cloth_002',
+                name: 'Elegant Evening Dress',
+                price: 28000,
+                image: 'https://images.pexels.com/photos/1488463/pexels-photo-1488463.jpeg',
+                description: 'Stunning evening dress for special occasions.',
+                category: 'clothing',
+                rating: 5,
+                reviews: 156,
+                brand: 'ElegantWear'
+            },
+            {
+                id: 'cloth_003',
+                name: 'Comfortable Jeans',
+                price: 22000,
+                image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg',
+                description: 'High-quality denim jeans with perfect fit.',
+                category: 'clothing',
+                rating: 4,
+                reviews: 234,
+                brand: 'DenimCraft'
+            },
+            {
+                id: 'cloth_004',
+                name: 'Sports Activewear Set',
+                price: 19000,
+                image: 'https://images.pexels.com/photos/1661471/pexels-photo-1661471.jpeg',
+                description: 'Breathable activewear for workouts and sports.',
+                category: 'clothing',
+                rating: 4,
+                reviews: 187,
+                brand: 'ActiveLife'
+            },
+            
+            // Gadgets
+            {
+                id: 'gadget_001',
+                name: 'Wireless Charging Station',
+                price: 12000,
+                image: 'https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg',
+                description: 'Fast wireless charging pad for multiple devices.',
+                category: 'gadgets',
+                rating: 4,
+                reviews: 123,
+                brand: 'ChargeTech'
+            },
+            {
+                id: 'gadget_002',
+                name: 'Bluetooth Speaker Pro',
+                price: 18000,
+                image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg',
+                description: 'Portable speaker with amazing sound quality.',
+                category: 'gadgets',
+                rating: 5,
+                reviews: 298,
+                brand: 'SoundMax'
+            },
+            {
+                id: 'gadget_003',
+                name: 'Smart Home Assistant',
+                price: 32000,
+                image: 'https://images.pexels.com/photos/4790268/pexels-photo-4790268.jpeg',
+                description: 'Voice-controlled smart assistant for home automation.',
+                category: 'gadgets',
+                rating: 4,
+                reviews: 167,
+                brand: 'SmartHome'
+            },
+            {
+                id: 'gadget_004',
+                name: 'Fitness Tracker Band',
+                price: 15000,
+                image: 'https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg',
+                description: 'Advanced fitness tracking with heart rate monitor.',
+                category: 'gadgets',
+                rating: 4,
+                reviews: 145,
+                brand: 'FitTrack'
+            },
+            
+            // Food Items
+            {
+                id: 'food_001',
+                name: 'Gourmet Coffee Beans',
+                price: 8000,
+                image: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg',
+                description: 'Premium arabica coffee beans from Ethiopian highlands.',
+                category: 'food',
+                rating: 5,
+                reviews: 234,
+                brand: 'CoffeeCraft'
+            },
+            {
+                id: 'food_002',
+                name: 'Organic Honey Set',
+                price: 6500,
+                image: 'https://images.pexels.com/photos/87824/pexels-photo-87824.jpeg',
+                description: 'Pure organic honey collection from local farms.',
+                category: 'food',
+                rating: 5,
+                reviews: 189,
+                brand: 'NatureSweet'
+            },
+            {
+                id: 'food_003',
+                name: 'Artisan Chocolate Box',
+                price: 12000,
+                image: 'https://images.pexels.com/photos/3794730/pexels-photo-3794730.jpeg',
+                description: 'Handcrafted chocolates with premium ingredients.',
+                category: 'food',
+                rating: 5,
+                reviews: 156,
+                brand: 'ChocoArt'
+            },
+            {
+                id: 'food_004',
+                name: 'Herbal Tea Collection',
+                price: 5500,
+                image: 'https://images.pexels.com/photos/1417945/pexels-photo-1417945.jpeg',
+                description: 'Variety pack of premium herbal teas.',
+                category: 'food',
+                rating: 4,
+                reviews: 98,
+                brand: 'TeaTime'
+            },
+            
+            // Books
+            {
+                id: 'book_001',
+                name: 'Programming Mastery Guide',
+                price: 7500,
+                image: 'https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg',
+                description: 'Comprehensive guide to modern programming techniques.',
+                category: 'books',
+                rating: 5,
+                reviews: 267,
+                brand: 'TechBooks'
+            },
+            {
+                id: 'book_002',
+                name: 'Business Strategy Handbook',
+                price: 9000,
+                image: 'https://images.pexels.com/photos/1112048/pexels-photo-1112048.jpeg',
+                description: 'Essential strategies for business success.',
+                category: 'books',
+                rating: 4,
+                reviews: 145,
+                brand: 'BusinessPro'
+            },
+            {
+                id: 'book_003',
+                name: 'Self-Development Series',
+                price: 11000,
+                image: 'https://images.pexels.com/photos/1029141/pexels-photo-1029141.jpeg',
+                description: 'Complete collection of personal development books.',
+                category: 'books',
+                rating: 5,
+                reviews: 198,
+                brand: 'GrowthBooks'
+            },
+            {
+                id: 'book_004',
+                name: 'Classic Literature Set',
+                price: 13500,
+                image: 'https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg',
+                description: 'Timeless classics in beautiful hardcover editions.',
+                category: 'books',
+                rating: 5,
+                reviews: 176,
+                brand: 'ClassicReads'
+            }
+        ];
+
+        // Global state
+        let currentProducts = [...sampleProducts];
+        let currentCategory = 'all';
+        let cart = [];
+
+        // Utility functions
+        function formatPrice(price) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0
+            }).format(price / 100);
+        }
+
+        function generateStars(rating) {
+            return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+        }
+
+        // Filter and search functions
+        function filterByCategory(category) {
+            currentCategory = category;
+            
+            // Update active nav button
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter products
+            if (category === 'all') {
+                currentProducts = [...sampleProducts];
+                document.getElementById('sectionTitle').textContent = 'All Products';
+            } else {
+                currentProducts = sampleProducts.filter(p => p.category === category);
+                document.getElementById('sectionTitle').textContent = category.charAt(0).toUpperCase() + category.slice(1);
+            }
+            
+            updateBrandFilter();
+            applyFilters();
+        }
+
+        function handleSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            if (!searchTerm.trim()) {
+                filterByCategory(currentCategory);
+                return;
+            }
+            
+            const term = searchTerm.toLowerCase();
+            currentProducts = sampleProducts.filter(product => 
+                product.name.toLowerCase().includes(term) ||
+                product.description.toLowerCase().includes(term) ||
+                product.brand.toLowerCase().includes(term)
+            );
+            
+            document.getElementById('sectionTitle').textContent = `Search Results for "${searchTerm}"`;
+            updateBrandFilter();
+            renderProducts();
+        }
+
+        function handleFilter() {
+            applyFilters();
+        }
+
+        function handleSort() {
+            const sortBy = document.getElementById('sortSelect').value;
+            currentProducts = sortProducts([...currentProducts], sortBy);
+            renderProducts();
+        }
+
+        function applyFilters() {
+            const brand = document.getElementById('brandSelect').value;
+            const rating = document.getElementById('ratingSelect').value;
+            const minPrice = document.getElementById('minPrice').value;
+            const maxPrice = document.getElementById('maxPrice').value;
+            
+            const filters = {
+                brand: brand !== 'all' ? brand : null,
+                rating: rating ? parseInt(rating) : null,
+                minPrice: minPrice ? parseInt(minPrice) * 100 : null,
+                maxPrice: maxPrice ? parseInt(maxPrice) * 100 : null
+            };
+            
+            let filtered = currentCategory === 'all' ? [...sampleProducts] : sampleProducts.filter(p => p.category === currentCategory);
+            filtered = filterProducts(filtered, filters);
+            
+            currentProducts = filtered;
+            renderProducts();
+        }
+
+        function clearFilters() {
+            document.getElementById('sortSelect').value = '';
+            document.getElementById('brandSelect').value = 'all';
+            document.getElementById('ratingSelect').value = '';
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            document.getElementById('searchInput').value = '';
+            
+            filterByCategory(currentCategory);
+        }
+
+        // Helper functions from original code
+        function filterProducts(products, filters) {
+            return products.filter(product => {
+                if (filters.minPrice && product.price < filters.minPrice) return false;
+                if (filters.maxPrice && product.price > filters.maxPrice) return false;
+                if (filters.brand && product.brand !== filters.brand) return false;
+                if (filters.rating && product.rating < filters.rating) return false;
+                return true;
+            });
+        }
+
+        function sortProducts(products, sortBy) {
+            const sorted = [...products];
+            
+            switch (sortBy) {
+                case 'price-low':
+                    return sorted.sort((a, b) => a.price - b.price);
+                case 'price-high':
+                    return sorted.sort((a, b) => b.price - a.price);
+                case 'rating':
+                    return sorted.sort((a, b) => b.rating - a.rating);
+                case 'reviews':
+                    return sorted.sort((a, b) => b.reviews - a.reviews);
+                case 'name':
+                    return sorted.sort((a, b) => a.name.localeCompare(b.name));
+                default:
+                    return sorted;
+            }
+        }
+
+        function updateBrandFilter() {
+            const brandSelect = document.getElementById('brandSelect');
+            const brands = [...new Set(currentProducts.map(p => p.brand))].sort();
+            
+            brandSelect.innerHTML = '<option value="all">All Brands</option>';
+            brands.forEach(brand => {
+                const option = document.createElement('option');
+                option.value = brand;
+                option.textContent = brand;
+                brandSelect.appendChild(option);
+            });
+        }
+
+        // Cart functions
+        function addToCart(productId) {
+            const product = sampleProducts.find(p => p.id === productId);
+            if (product) {
+                cart.push(product);
+                updateCartCount();
+                
+                // Visual feedback
+                event.target.textContent = 'Added!';
+                event.target.style.background = '#059669';
+                setTimeout(() => {
+                    event.target.textContent = 'Add to Cart';
+                    event.target.style.background = '';
+                }, 1000);
+            }
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        // Render functions
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            
+            if (currentProducts.length === 0) {
+                grid.innerHTML = '<div class="no-products">No products found matching your criteria.</div>';
+                return;
+            }
+            
+            grid.innerHTML = currentProducts.map(product => `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-rating">
+                            <span class="stars">${generateStars(product.rating)}</span>
+                            <span class="rating-text">${product.rating}/5 (${product.reviews} reviews)</span>
+                        </div>
+                        <div class="product-price">${formatPrice(product.price)}</div>
+                        <div class="product-footer">
+                            <span class="brand">${product.brand}</span>
+                            <button class="add-to-cart" onclick="addToCart('${product.id}')">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateBrandFilter();
+            renderProducts();
+            
+            // Add Enter key support for search
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

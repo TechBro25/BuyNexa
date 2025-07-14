@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - BuyNexa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1 onclick="window.location.href='index.html'">BuyNexa</h1>
+            </div>
+            
+            <div class="nav-actions">
+                <select id="currencySelector" onchange="changeCurrency(this.value)">
+                    <option value="NGN">₦ NGN</option>
+                    <option value="USD">$ USD</option>
+                    <option value="EUR">€ EUR</option>
+                    <option value="GBP">£ GBP</option>
+                </select>
+                
+                <div class="cart-icon">
+                    🛒 <span id="cartCount">0</span>
+                </div>
+                
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Content -->
+    <div class="container" style="margin-top: 6rem; min-height: 70vh;">
+        <h1 class="section-title">Your Shopping Cart</h1>
+        
+        <div id="cartContent">
+            <div id="emptyCart" style="text-align: center; padding: 4rem; display: none;">
+                <h2 style="color: #64748b; margin-bottom: 1rem;">Your cart is empty</h2>
+                <p style="color: #94a3b8; margin-bottom: 2rem;">Add some products to get started!</p>
+                <button class="cta-button" onclick="window.location.href='index.html'">Continue Shopping</button>
+            </div>
+            
+            <div id="cartItems"></div>
+            
+            <div id="cartSummary" class="cart-summary" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3>Order Summary</h3>
+                </div>
+                
+                <div class="form-group">
+                    <label for="couponCode">Coupon Code (Optional)</label>
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="text" id="couponCode" placeholder="Enter coupon code">
+                        <button onclick="applyCoupon()" style="padding: 12px 20px; background: #3B82F6; color: white; border: none; border-radius: 6px; cursor: pointer;">Apply</button>
+                    </div>
+                </div>
+                
+                <div style="border-top: 2px solid #e2e8f0; padding-top: 1rem; margin-top: 1rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Subtotal:</span>
+                        <span id="subtotal"></span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #10B981;" id="discountRow" style="display: none;">
+                        <span>Discount:</span>
+                        <span id="discount">-₦0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 1.1rem; font-weight: 600;">
+                        <span>Total:</span>
+                        <span id="total"></span>
+                    </div>
+                </div>
+                
+                <button class="form-button" onclick="proceedToCheckout()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BuyNexa</h3>
+                    <p>Your ultimate shopping destination for quality products at amazing prices.</p>
+                </div>
+                <div class="footer-section">
+                     <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <p>Email: support@buynexa.com</p>
+                    <p>Phone: +234 915 460 9367</p>
+                    <p>WhatsApp: <a href="https://wa.me/2349154609367">Chat with us</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BuyNexa. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="products.js"></script>
+    <script>
+        let appliedCoupon = null;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartDisplay();
+            checkAuthStatus();
+        });
+        
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const emptyCart = document.getElementById('emptyCart');
+            const cartSummary = document.getElementById('cartSummary');
+            
+            if (cart.length === 0) {
+                emptyCart.style.display = 'block';
+                cartSummary.style.display = 'none';
+                cartItems.innerHTML = '';
+                return;
+            }
+            
+            emptyCart.style.display = 'none';
+            cartSummary.style.display = 'block';
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <h3>${item.name}</h3>
+                        <p>${formatPrice(item.price)}</p>
+                    </div>
+                    <div class="cart-item-controls">
+                        <div class="quantity-controls">
+                            <button onclick="updateCartQuantity('${item.id}', ${item.quantity - 1})">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="updateCartQuantity('${item.id}', ${item.quantity + 1})">+</button>
+                        </div>
+                        <div style="margin-left: 1rem;">
+                            <strong>${formatPrice(item.price * item.quantity)}</strong>
+                        </div>
+                        <button onclick="removeFromCart('${item.id}')" style="background: #dc2626; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; margin-left: 1rem;">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            updateOrderSummary();
+        }
+        
+        function updateOrderSummary() {
+            const subtotalAmount = getCartTotal();
+            let discountAmount = 0;
+            
+            if (appliedCoupon) {
+                discountAmount = calculateDiscount(subtotalAmount, appliedCoupon);
+            }
+            
+            const totalAmount = subtotalAmount - discountAmount;
+            
+            document.getElementById('subtotal').textContent = formatPrice(subtotalAmount);
+            document.getElementById('total').textContent = formatPrice(totalAmount);
+            
+            const discountRow = document.getElementById('discountRow');
+            if (discountAmount > 0) {
+                document.getElementById('discount').textContent = `-${formatPrice(discountAmount)}`;
+                discountRow.style.display = 'flex';
+            } else {
+                discountRow.style.display = 'none';
+            }
+        }
+        
+        function applyCoupon() {
+            const couponCode = document.getElementById('couponCode').value.trim().toUpperCase();
+            const validCoupons = {
+                'SAVE20': { type: 'percentage', value: 20, minAmount: 50000 },
+                'FIRST15': { type: 'percentage', value: 15, minAmount: 0 },
+                'BULK30': { type: 'percentage', value: 30, minAmount: 0, minItems: 5 }
+            };
+            
+            if (!couponCode) {
+                showMessage('Please enter a coupon code', 'error');
+                return;
+            }
+            
+            const coupon = validCoupons[couponCode];
+            if (!coupon) {
+                showMessage('Invalid coupon code', 'error');
+                return;
+            }
+            
+            const subtotal = getCartTotal();
+            const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (coupon.minAmount && subtotal < coupon.minAmount) {
+                showMessage(`Minimum order amount of ${formatPrice(coupon.minAmount)} required for this coupon`, 'error');
+                return;
+            }
+            
+            if (coupon.minItems && itemCount < coupon.minItems) {
+                showMessage(`Minimum ${coupon.minItems} items required for this coupon`, 'error');
+                return;
+            }
+            
+            appliedCoupon = coupon;
+            updateOrderSummary();
+            showMessage(`Coupon ${couponCode} applied successfully!`, 'success');
+        }
+        
+        function calculateDiscount(amount, coupon) {
+            if (coupon.type === 'percentage') {
+                return amount * (coupon.value / 100);
+            }
+            return coupon.value; // fixed amount
+        }
+        
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showMessage('Your cart is empty', 'error');
+                return;
+            }
+            
+            // Store coupon info for checkout
+            if (appliedCoupon) {
+                localStorage.setItem('appliedCoupon', JSON.stringify(appliedCoupon));
+            }
+            
+            window.location.href = 'checkout.html';
+        }
+    </script>
+</body>
+</html>
