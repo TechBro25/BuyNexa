@@ -421,77 +421,60 @@
             color: #009639;
         }
 
-        /* Bank Details */
-        .bank-details {
-            background: rgba(255, 255, 255, 0.9);
+        /* Bank Info */
+        .bank-info {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid rgba(16, 185, 129, 0.2);
             border-radius: 12px;
             padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(16, 185, 129, 0.2);
+            margin-top: 1rem;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        .bank-info.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .bank-info h4 {
+            color: #065f46;
+            margin-bottom: 1rem;
+        }
+
+        .bank-details {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
         }
 
         .bank-details p {
-            margin-bottom: 0.75rem;
-            font-size: 0.95rem;
-            display: flex;
-            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
         }
 
         .bank-details p:last-child {
             margin-bottom: 0;
         }
 
-        .bank-details strong {
-            color: #065f46;
-        }
-
         .whatsapp-link {
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
-            background: linear-gradient(45deg, #25D366, #128C7E);
+            gap: 0.5rem;
+            background: #25D366;
             color: white;
             text-decoration: none;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
         }
 
         .whatsapp-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-        }
-
-        /* Checkbox Styling */
-        .checkbox-label {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            cursor: pointer;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .checkbox-label input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            margin: 0;
-            accent-color: #667eea;
-            cursor: pointer;
-        }
-
-        .checkbox-label a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .checkbox-label a:hover {
-            text-decoration: underline;
-            color: #5a67d8;
+            background: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
         }
 
         /* Form Button */
@@ -582,123 +565,6 @@
             border-radius: 2px;
         }
 
-        /* Order Items */
-        #orderItems {
-            margin-bottom: 1.5rem;
-            max-height: 350px;
-            overflow-y: auto;
-            padding-right: 0.5rem;
-        }
-
-        #orderItems::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        #orderItems::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
-        }
-
-        #orderItems::-webkit-scrollbar-thumb {
-            background: rgba(102, 126, 234, 0.3);
-            border-radius: 4px;
-        }
-
-        #orderItems::-webkit-scrollbar-thumb:hover {
-            background: rgba(102, 126, 234, 0.5);
-        }
-
-        .order-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .order-item img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .order-item-details {
-            flex: 1;
-        }
-
-        .order-item-details h4 {
-            font-size: 0.95rem;
-            margin-bottom: 0.25rem;
-            color: #1e293b;
-            font-weight: 600;
-        }
-
-        .order-item-details p {
-            font-size: 0.85rem;
-            color: #64748b;
-        }
-
-        .order-item-price {
-            text-align: right;
-        }
-
-        .order-item-price p {
-            font-weight: 700;
-            color: #3B82F6;
-            font-size: 1rem;
-        }
-
-        /* Order Summary Totals */
-        .order-totals {
-            border-top: 2px solid #e2e8f0;
-            padding-top: 1.5rem;
-        }
-
-        .order-total-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.75rem;
-            font-size: 0.95rem;
-        }
-
-        .order-total-row.final {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #3B82F6;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 0.75rem;
-            margin-top: 0.75rem;
-        }
-
-        .order-total-row.discount {
-            color: #10B981;
-        }
-
-        /* Security Info */
-        .security-info {
-            margin-top: 2rem;
-            text-align: center;
-            padding: 1.5rem;
-            background: rgba(16, 185, 129, 0.1);
-            border-radius: 12px;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-
-        .security-info p {
-            font-size: 0.9rem;
-            color: #064e3b;
-            margin-bottom: 0.5rem;
-        }
-
-        .security-info p:last-child {
-            margin-bottom: 0;
-            font-size: 0.8rem;
-            color: #065f46;
-        }
-
         /* Responsive Design */
         @media (max-width: 1024px) {
             .checkout-grid {
@@ -725,7 +591,6 @@
             
             .container {
                 padding: 0 1rem;
-                margin-top: 8rem !important;
             }
             
             .section-title {
@@ -753,10 +618,6 @@
         }
 
         @media (max-width: 480px) {
-            .container {
-                margin-top: 10rem !important;
-            }
-            
             .section-title {
                 font-size: 1.75rem;
             }
@@ -829,47 +690,6 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        }
-
-        /* Success/Error States */
-        .success {
-            border-color: #10B981 !important;
-            background: rgba(16, 185, 129, 0.1) !important;
-        }
-
-        .error {
-            border-color: #EF4444 !important;
-            background: rgba(239, 68, 68, 0.1) !important;
-        }
-
-        /* Focus Styles for Accessibility */
-        button:focus,
-        input:focus,
-        select:focus,
-        textarea:focus {
-            outline: 2px solid #667eea;
-            outline-offset: 2px;
-        }
-
-        /* Print Styles */
-        @media print {
-            .navbar,
-            .form-button,
-            .whatsapp-link {
-                display: none;
-            }
-            
-            body {
-                background: white;
-                color: black;
-            }
-            
-            .form-container,
-            .cart-summary {
-                background: white;
-                border: 1px solid #ccc;
-                box-shadow: none;
-            }
         }
     </style>
 </head>
@@ -989,14 +809,6 @@
                                 <br><small>Pay securely with your PayPal account</small>
                             </label>
                         </div>
-                        
-                        <div class="payment-method" onclick="selectPaymentMethod('crypto')">
-                            <input type="radio" name="paymentMethod" value="crypto" id="cryptoPayment">
-                            <label for="cryptoPayment">
-                                <strong>₿ Cryptocurrency</strong>
-                                <br><small>Pay with Bitcoin, Ethereum, or other cryptocurrencies</small>
-                            </label>
-                        </div>
                     </div>
                     
                     <!-- Credit Card Fields -->
@@ -1037,13 +849,13 @@
                     </div>
                     
                     <!-- Bank Transfer Info -->
-                    <div id="bankInfo" class="payment-fields">
+                    <div id="bankInfo" class="bank-info">
                         <h4>Bank Transfer Details</h4>
                         <div class="bank-details">
-                            <p><strong>Bank:</strong> <span>Moniepoint MFB</span></p>
-                            <p><strong>Account Number:</strong> <span>9154609367</span></p>
-                            <p><strong>Account Name:</strong> <span>BuyNexa Store</span></p>
-                            <p><strong>Sort Code:</strong> <span>50515</span></p>
+                            <p><strong>Bank:</strong> Moniepoint MFB</p>
+                            <p><strong>Account Number:</strong> 9154609367</p>
+                            <p><strong>Account Name:</strong> BuyNexa Store</p>
+                            <p><strong>Sort Code:</strong> 50515</p>
                         </div>
                         <p style="margin-bottom: 1rem; color: #64748b;">
                             Transfer the exact amount and send proof of payment via WhatsApp for confirmation.
@@ -1065,49 +877,6 @@
                         </p>
                     </div>
                     
-                    <!-- Crypto Fields -->
-                    <div id="cryptoFields" class="payment-fields">
-                        <h4>Cryptocurrency Payment</h4>
-                        <div class="form-group">
-                            <label for="cryptoType">Select Cryptocurrency *</label>
-                            <select id="cryptoType" name="cryptoType">
-                                <option value="">Choose cryptocurrency</option>
-                                <option value="Bitcoin">Bitcoin (BTC)</option>
-                                <option value="Ethereum">Ethereum (ETH)</option>
-                                <option value="USDT">Tether (USDT)</option>
-                                <option value="USDC">USD Coin (USDC)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="cryptoWallet">Your Wallet Address *</label>
-                            <input type="text" id="cryptoWallet" name="cryptoWallet" placeholder="Enter your wallet address for refunds">
-                        </div>
-                        <p style="color: #64748b; font-size: 0.9rem;">
-                            Wallet address will be provided after order confirmation. Send payment proof via WhatsApp.
-                        </p>
-                    </div>
-                    
-                    <!-- Order Notes -->
-                    <div class="form-group" style="margin-top: 2rem;">
-                        <label for="orderNotes">Order Notes (Optional)</label>
-                        <textarea id="orderNotes" name="orderNotes" rows="3" placeholder="Any special instructions for your order..."></textarea>
-                    </div>
-                    
-                    <!-- Terms and Conditions -->
-                    <div class="form-group" style="margin-top: 1.5rem;">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
-                            I agree to the <a href="#" target="_blank">Terms and Conditions</a> and <a href="#" target="_blank">Privacy Policy</a>
-                        </label>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="subscribeNewsletter" name="subscribeNewsletter">
-                            Subscribe to our newsletter for exclusive offers and updates
-                        </label>
-                    </div>
-                    
                     <button type="submit" class="form-button">
                         🛒 Place Order
                     </button>
@@ -1118,41 +887,47 @@
             <div class="cart-summary fade-in">
                 <h3>Order Summary</h3>
                 
-                <div id="orderItems"></div>
+                <div id="orderItems" style="margin-bottom: 1rem; max-height: 300px; overflow-y: auto; padding-right: 0.5rem;"></div>
                 
-                <div class="order-totals">
-                    <div class="order-total-row">
+                <div style="border-top: 2px solid #e2e8f0; padding-top: 1rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                         <span>Subtotal:</span>
                         <span id="orderSubtotal">₦0</span>
                     </div>
-                    <div class="order-total-row discount" id="orderDiscountRow" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #10B981;" id="orderDiscountRow" style="display: none;">
                         <span>Discount:</span>
                         <span id="orderDiscount">-₦0</span>
                     </div>
-                    <div class="order-total-row">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                         <span>Shipping:</span>
                         <span>Free</span>
                     </div>
-                    <div class="order-total-row">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                         <span>Tax (7.5%):</span>
                         <span id="orderTax">₦0</span>
                     </div>
-                    <div class="order-total-row final">
+                    <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; color: #3B82F6; border-top: 1px solid #e2e8f0; padding-top: 0.5rem; margin-top: 0.5rem;">
                         <span>Total:</span>
                         <span id="orderTotal">₦0</span>
                     </div>
                 </div>
                 
-                <div class="security-info">
-                    <p>🔒 Secure checkout with SSL encryption</p>
-                    <p>💳 We accept all major credit cards<br>
-                    🚚 Free shipping on orders over ₦50,000</p>
+                <div style="margin-top: 2rem; text-align: center; padding: 1.5rem; background: rgba(16, 185, 129, 0.1); border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                    <p style="font-size: 0.9rem; color: #064e3b; margin-bottom: 0.5rem;">
+                        🔒 Secure checkout with SSL encryption
+                    </p>
+                    <p style="font-size: 0.8rem; color: #065f46;">
+                        💳 We accept all major credit cards<br>
+                        🚚 Free shipping on orders over ₦50,000
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-<script src="main.js"></script>
+
+    <script src="main.js"></script>
     <script src="products.js"></script>
+    <script src="c.js"></script>
 <script>
     let appliedCoupon = null;
     let currentCurrency = 'NGN';
@@ -1188,17 +963,15 @@
         document.querySelectorAll('.payment-fields').forEach(el => {
             el.classList.remove('show');
         });
+        document.getElementById('bankInfo')?.classList.remove('show');
 
         // Show selected payment fields
-        const fieldsId = method + 'Fields';
-        const fieldsElement = document.getElementById(fieldsId);
-        if (fieldsElement) {
-            fieldsElement.classList.add('show');
-        }
-
-        // Special case for bank info
-        if (method === 'bank') {
+        if (method === 'card') {
+            document.getElementById('cardFields').classList.add('show');
+        } else if (method === 'bank') {
             document.getElementById('bankInfo').classList.add('show');
+        } else if (method === 'paypal') {
+            document.getElementById('paypalFields').classList.add('show');
         }
     }
 
@@ -1228,14 +1001,14 @@
         }
 
         orderItems.innerHTML = cart.map(item => `
-            <div class="order-item">
-                <img src="${item.image || 'https://via.placeholder.com/60'}" alt="${item.name}">
-                <div class="order-item-details">
-                    <h4>${item.name}</h4>
-                    <p>Qty: ${item.quantity}</p>
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e2e8f0;">
+                <img src="${item.image || 'https://via.placeholder.com/60'}" alt="${item.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                <div style="flex: 1;">
+                    <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem; color: #1e293b; font-weight: 600;">${item.name}</h4>
+                    <p style="font-size: 0.85rem; color: #64748b;">Qty: ${item.quantity}</p>
                 </div>
-                <div class="order-item-price">
-                    <p>${formatPrice(item.price * item.quantity)}</p>
+                <div style="text-align: right;">
+                    <p style="font-weight: 700; color: #3B82F6; font-size: 1rem;">${formatPrice(item.price * item.quantity)}</p>
                 </div>
             </div>
         `).join('');
@@ -1281,8 +1054,7 @@
         const methods = {
             'card': 'Credit/Debit Card',
             'bank': 'Bank Transfer',
-            'paypal': 'PayPal',
-            'crypto': 'Cryptocurrency'
+            'paypal': 'PayPal'
         };
         return methods[method] || method;
     }
@@ -1303,11 +1075,6 @@
             return;
         }
 
-        if (!formData.get('agreeTerms')) {
-            alert("Please agree to the Terms and Conditions.");
-            return;
-        }
-
         // Get all form data
         const orderData = {
             // Customer Information
@@ -1321,11 +1088,7 @@
             postalCode: formData.get('postalCode'),
             
             // Payment Information
-            paymentMethod: paymentMethod,
-            
-            // Order Details
-            orderNotes: formData.get('orderNotes'),
-            subscribeNewsletter: formData.get('subscribeNewsletter') ? 'Yes' : 'No'
+            paymentMethod: paymentMethod
         };
 
         // Add payment-specific details
@@ -1337,9 +1100,6 @@
             orderData.billingAddress = formData.get('billingAddress');
         } else if (paymentMethod === 'paypal') {
             orderData.paypalEmail = formData.get('paypalEmail');
-        } else if (paymentMethod === 'crypto') {
-            orderData.cryptoType = formData.get('cryptoType');
-            orderData.cryptoWallet = formData.get('cryptoWallet');
         }
 
         const subtotalAmount = getCartTotal();
@@ -1377,9 +1137,6 @@
             }
         } else if (paymentMethod === 'paypal') {
             message += `• PayPal Email: ${orderData.paypalEmail}%0A`;
-        } else if (paymentMethod === 'crypto') {
-            message += `• Cryptocurrency: ${orderData.cryptoType}%0A`;
-            message += `• Wallet Address: ${orderData.cryptoWallet}%0A`;
         }
         message += `%0A`;
 
@@ -1402,13 +1159,6 @@
         message += `• Tax (7.5%): ${currencySymbol}${taxAmount.toLocaleString()}%0A`;
         message += `• Shipping: FREE%0A`;
         message += `• *TOTAL: ${currencySymbol}${totalAmount.toLocaleString()}*%0A%0A`;
-
-        // Additional Information
-        if (orderData.orderNotes) {
-            message += `📝 *ORDER NOTES*%0A${orderData.orderNotes}%0A%0A`;
-        }
-
-        message += `📧 *Newsletter Subscription:* ${orderData.subscribeNewsletter}%0A%0A`;
         
         message += `⏰ *Order Time:* ${new Date().toLocaleString()}%0A`;
         message += `🆔 *Order ID:* BN${Date.now()}%0A%0A`;
@@ -1435,19 +1185,7 @@
             
             // Show success message
             alert('Order details have been sent to WhatsApp! Please check your WhatsApp to complete the order.');
-            
-            // Optionally clear cart after successful order
-            // localStorage.removeItem('cart');
-            // window.location.href = 'order-success.html';
         }, 2000);
-    });
-
-    // Auto-fill billing address with shipping address
-    document.getElementById('address').addEventListener('input', function() {
-        const billingAddress = document.getElementById('billingAddress');
-        if (billingAddress && !billingAddress.value) {
-            billingAddress.placeholder = 'Same as shipping address';
-        }
     });
 </script>
 
